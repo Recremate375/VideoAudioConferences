@@ -1,0 +1,27 @@
+﻿<Window x:Class="DiplomClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomClient"
+        mc:Ignorable="d"
+        Title="Diplom" Height="450" Width="800" Background="DarkSlateBlue">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <Button Margin="15" Content="{Binding ButtonContent}" Background="Aqua"/>
+        <Image Grid.Column="1" Grid.Row="1">
+        </Image>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="10" Text="Enter a message..." Background="Gray"/>
+        
+    
+    </Grid>
+</Window>
