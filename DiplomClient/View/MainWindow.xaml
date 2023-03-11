@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiplomClient"
+        xmlns:converters ="clr-namespace:DiplomClient.Converters"
         mc:Ignorable="d"
         Title="Diplom" Height="450" Width="800" Background="DarkSlateBlue">
+    <Window.Resources>
+        <converters:BitmapSourceConvert x:Key="BitmapSourceConvert"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.25*"/>
@@ -17,8 +21,10 @@
             <RowDefinition/>
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
-        <Button Margin="15" Content="{Binding ButtonContent}" Background="Aqua"/>
-        <Image Grid.Column="1" Grid.Row="1">
+        <Button Margin="15" Content="{Binding ButtonContent}"
+                Command="{Binding ToggleCameraServiceCommand}"
+                Background="Aqua"/>
+        <Image Grid.Column="1" Grid.Row="1" Source="{Binding Frame, Converter={StaticResource BitmapSourceConvert}}" Stretch="Fill">
         </Image>
         <TextBox Grid.Row="2" Grid.Column="1" Margin="10" Text="Enter a message..." Background="Gray"/>
         

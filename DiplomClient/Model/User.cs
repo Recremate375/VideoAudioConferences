@@ -8,5 +8,6 @@ namespace DiplomClient.Model
 {
     internal class User
     {
+        
     }
 }

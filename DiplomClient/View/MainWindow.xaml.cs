@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiplomClient.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace DiplomClient
         public MainWindow()
         {
             InitializeComponent();
+            var viewModel = new MainViewModel(Close);
+            DataContext = viewModel;
         }
     }
 }
