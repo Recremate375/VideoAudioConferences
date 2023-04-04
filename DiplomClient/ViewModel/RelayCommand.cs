@@ -35,5 +35,6 @@ namespace DiplomClient.ViewModel
             var handler = CanExecuteChanged;
             handler?.Invoke(this, EventArgs.Empty);
         }
+
     }
 }

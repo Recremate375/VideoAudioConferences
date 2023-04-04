@@ -36,6 +36,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.3" />
     <PackageReference Include="NLog" Version="5.1.2" />
     <PackageReference Include="NLog.Schema" Version="5.1.2" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="ZedGraph" Version="5.1.7" />
   </ItemGroup>
 

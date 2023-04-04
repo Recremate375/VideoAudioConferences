@@ -8,14 +8,20 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Windows;
 
 namespace DiplomClient.Services
 {
     public class WebCameraService : IDisposable
     {
         public delegate void ImageChangedEventHandler(object sender, Image<Bgr, byte> image);
-        private readonly Logger logger= LogManager.GetCurrentClassLogger();
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private VideoCapture capture;
+
+        private int screenLeft = (int)SystemParameters.VirtualScreenLeft;
+        private int screenTop = (int)SystemParameters.VirtualScreenTop;
+        private int screenWidth = (int)SystemParameters.VirtualScreenWidth;
+        private int screenHeight = (int)SystemParameters.VirtualScreenHeight;
 
         private CascadeClassifier cascadeClassifier;
         private BackgroundWorker webCamWorker;
@@ -69,14 +75,14 @@ namespace DiplomClient.Services
             var assembly = Assembly.GetExecutingAssembly();
             var path = Path.GetDirectoryName(assembly.Location);
 
-            //if (path != null)
-            //{
-            //    cascadeClassifier = new CascadeClassifier(Path.Combine(path, "haarcascade_frontalface_default.xml"));
-            //}
-            //else
-            //{
-            //    logger.Error("Couldn't find haarcascade xml file");
-            //}
+            if (path != null)
+            {
+                cascadeClassifier = new CascadeClassifier(Path.Combine(path, "haarcascade_frontalface_default.xml"));
+            }
+            else
+            {
+                logger.Error("Couldn't find haarcascade xml file");
+            }
         }
 
         public event ImageChangedEventHandler ImageChanged;
@@ -114,10 +120,18 @@ namespace DiplomClient.Services
             while (!webCamWorker.CancellationPending)
             {
                 var image = Capture.QueryFrame().ToImage<Bgr, byte>();
-
+                //Тут должна быть передача данных на сервер.
                 //DetectFaces()
                 RaiseImageChangedEvent(image);
             }
         }
+        //private void ShareScreen()
+        //{
+        //    Bitmap bm_Screen = new Bitmap(screenWidth, screenHeight);
+        //    Graphics gs = Graphics.FromImage(bm_Screen);
+
+        //    gs.CopyFromScreen(screenLeft, screenTop, 0, 0, bm_Screen.Size);
+
+        //}
     }
 }

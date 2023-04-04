@@ -1,106 +1,56 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using DiplomClient.Services;
+using DiplomClient.View.Pages;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using NLog;
+using Prism.Commands;
 
 namespace DiplomClient.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly Logger logger= LogManager.GetCurrentClassLogger();
-        private string buttonContent = "Show Video";
-        private Bitmap frame;
-        private bool isStreaming;
-        private WebCameraService webCameraService;
+        private Page _currentPage;
 
-        public MainViewModel(Action methodAction)
+        public MainViewModel()
         {
-            InitializeCommands();
-            CloseAction = methodAction;
+            _currentPage = new CallPage();
         }
-
-        public ICommand ToggleCameraServiceCommand { get; set; }
-        public ICommand ToggleCloseAppCommand { get; set; }
-
-        public Action CloseAction { get; set; }
-
-        public string ButtonContent
+        public Page CurrentPage
         {
-            get => buttonContent;
-            set => SetField(ref buttonContent, value);
-        }
-
-        public bool IsStreaming
-        {
-            get => isStreaming;
-            set => SetField(ref isStreaming, value);
-        }
-
-        public Bitmap Frame
-        {
-            get => frame;
-            set => SetField(ref frame, value);
-        }
-
-        private void InitializeWebCamService()
-        {
-            webCameraService = new WebCameraService();
-            webCameraService.ImageChanged += OnCameraImageChanged;
-        }
-
-        private void OnCameraImageChanged(object sender, Image<Bgr, byte> image)
-        {
-            Frame = image.AsBitmap(); // ???????
-        }
-
-        private void InitializeCommands()
-        {
-            ToggleCameraServiceCommand = new RelayCommand(ToggleCameraServiceExecute);
-            ToggleCloseAppCommand = new RelayCommand(ToggleCloseApp);
-
-        }
-
-        private void ClearFrame()
-        {
-            if (Frame != null)
+            get { return _currentPage; }
+            set
             {
-                Frame = null;
+                if(_currentPage != value )
+                {
+                    _currentPage = value;
+                    OnPropertyChanged(nameof(CurrentPage));
+                }
             }
         }
 
-        private void ToggleCloseApp()
+        private ICommand _openCallPageCommand;
+        public ICommand OpenCallPageCommand
         {
-            CloseAction?.Invoke();
-            webCameraService?.Dispose();
+            get
+            {
+                if (_openCallPageCommand == null)
+                {
+                    _openCallPageCommand = new RelayCommandForPages(
+                        param => this.OpenCallPage(),
+                        param => true
+                        );
+                }
+                return _openCallPageCommand;
+            }
         }
-
-        private void ToggleCameraServiceExecute()
+        private void OpenCallPage()
         {
-            if (webCameraService == null)
-            {
-                InitializeWebCamService();
-            }
-
-            if (!webCameraService.IsRunning)
-            {
-                IsStreaming = true;
-                ButtonContent = "Stop Video";
-                webCameraService.RunServiceAsync();
-                logger.Info("Video streaming is started!");
-            }
-            else
-            {
-                IsStreaming = false;
-                ButtonContent = "Show Video";
-                webCameraService.CancelServiceAsync();
-                ClearFrame();
-                webCameraService.Dispose();
-                webCameraService = null;
-                logger.Info("Video streaming stopped!");
-            }
+            CurrentPage = new CallPage();
         }
     }
 }
