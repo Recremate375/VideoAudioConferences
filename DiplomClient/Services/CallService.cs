@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using Emgu.CV;
+using Emgu.CV.Structure;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +12,9 @@ namespace WPFClient.Services
 {
 	public class CallService
 	{
+		
 		private HubConnection hubConnection;
+		private VideoCapture capture = null;
 		public async Task ConnectAsync()
 		{
 			hubConnection = new HubConnectionBuilder().WithUrl("https://localhost:7154/videoHub").Build();
@@ -25,6 +29,10 @@ namespace WPFClient.Services
 				await videoStream.CopyToAsync(memoryStream);
 				await hubConnection.SendAsync("SendVideo", memoryStream.ToArray());
 			}
+		}
+		public async Task ReceiveVideoAsync(byte[] videoStream)
+		{
+			
 		}
 	}
 }

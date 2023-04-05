@@ -18,10 +18,10 @@ namespace DiplomClient.Services
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private VideoCapture capture;
 
-        private int screenLeft = (int)SystemParameters.VirtualScreenLeft;
-        private int screenTop = (int)SystemParameters.VirtualScreenTop;
-        private int screenWidth = (int)SystemParameters.VirtualScreenWidth;
-        private int screenHeight = (int)SystemParameters.VirtualScreenHeight;
+        //private int screenLeft = (int)SystemParameters.VirtualScreenLeft;
+        //private int screenTop = (int)SystemParameters.VirtualScreenTop;
+        //private int screenWidth = (int)SystemParameters.VirtualScreenWidth;
+        //private int screenHeight = (int)SystemParameters.VirtualScreenHeight;
 
         private CascadeClassifier cascadeClassifier;
         private BackgroundWorker webCamWorker;

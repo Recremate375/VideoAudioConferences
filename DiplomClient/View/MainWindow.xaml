@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DiplomClient"
         xmlns:converters ="clr-namespace:DiplomClient.Converters"
         mc:Ignorable="d"
-        Title="Diplom" Height="450" Width="800" Background="DarkSlateBlue">
+        Title="Diplom" Height="450" Width="800" Background="DarkSlateGray">
     
     
     <Frame x:Name="MainFraim" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
