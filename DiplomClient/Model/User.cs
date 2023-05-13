@@ -1,15 +1,14 @@
-﻿using System;
+﻿using WPFClient.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiplomClient.Model
 {
     public class User
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string Password { get; set; }
         public string Email { get; set; }
+        public byte[]? UserImage { get; set; }
+        public List<Channel>? Channels { get; set; }
     }
 }

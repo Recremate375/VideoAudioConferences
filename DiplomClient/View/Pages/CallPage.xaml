@@ -23,24 +23,63 @@
             <RowDefinition Height="*"/>
             <RowDefinition MinHeight="60" Height="Auto"/>
         </Grid.RowDefinitions>
-        <WrapPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
-            <Image Source="{Binding Frame, Converter={StaticResource BitmapSourceConvert}}" Stretch="Fill" Margin="10"/>
 
-        </WrapPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Orientation="Horizontal">
-            <Image Source="{Binding Frame, Converter={StaticResource BitmapSourceConvert}}" Stretch="Fill"
-                   MaxHeight="90" MaxWidth="160" VerticalAlignment="Bottom" HorizontalAlignment="Left"></Image>
-            <Button VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding ToggleCameraServiceCommand}" Margin="20" Content="start video"/>
-            <Button VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20" Content="stop sound"/>
-        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Background="BurlyWood" x:Name="CallGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition MinHeight="90" MaxHeight="180" Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="160" MaxWidth="320" Width="auto"/>
+                <ColumnDefinition/>
 
 
+            </Grid.ColumnDefinitions>
+            <WrapPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="BurlyWood" DataContext="{Binding Images}"/>
+            <Image Grid.Column="1" Grid.Row="0" Source="{Binding ScreenFrame,Converter={StaticResource BitmapSourceConvert}}" Stretch="Fill"/>
+            <StackPanel Grid.Row="1">
+                <Image Source="{Binding Frame, Converter={StaticResource BitmapSourceConvert}}" Stretch="Fill" MaxHeight="90" MaxWidth="160"></Image>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding ToggleScreenServiceCommand}" Margin="10" Height="40" Width="40" Content="Share screen" Background="DarkSlateBlue">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="15" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding ToggleCameraServiceCommand}" Margin="10" Height="40" Width="40" Content="start video" Background="DarkSlateBlue">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="15" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"  Height="40" Width="40" Content="stop sound" Background="DarkSlateBlue">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="15" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"  Height="40" Width="40" Content="Leave" Background="DarkRed">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="15" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
 
-        <!--<WrapPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="1">
-            
-        </WrapPanel>-->
-        
+        </Grid>
         
     </Grid>
 </Page>

@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DiplomClient.Model;
 using DiplomClient.Services;
 using DiplomClient.View.Pages;
-using Emgu.CV;
-using Emgu.CV.Structure;
-using NLog;
-using Prism.Commands;
+using WPFClient.Services.Interfaces;
+using WPFClient.ViewModel;
 
 namespace DiplomClient.ViewModel
 {
@@ -16,9 +16,11 @@ namespace DiplomClient.ViewModel
     {
         private Page _currentPage;
 
-        public MainViewModel()
+        private ObservableCollection<User> users;
+
+        public MainViewModel(IUserData userData)
         {
-            _currentPage = new CallPage();
+            _currentPage = new StartPage(userData); 
         }
         public Page CurrentPage
         {
@@ -52,5 +54,6 @@ namespace DiplomClient.ViewModel
         {
             CurrentPage = new CallPage();
         }
+
     }
 }

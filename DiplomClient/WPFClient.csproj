@@ -34,10 +34,24 @@
     <PackageReference Include="Emgu.CV.runtime.windows" Version="4.6.0.5131" />
     <PackageReference Include="Emgu.CV.Wpf" Version="4.6.0.5131" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NLog" Version="5.1.2" />
     <PackageReference Include="NLog.Schema" Version="5.1.2" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="ZedGraph" Version="5.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="img\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="img\AddButton.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="img\animeArt.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

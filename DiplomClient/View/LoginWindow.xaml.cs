@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiplomClient.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFClient.Services;
+using WPFClient.Services.Interfaces;
 
 namespace DiplomClient.View
 {
@@ -22,6 +25,9 @@ namespace DiplomClient.View
 		public LoginWindow()
 		{
 			InitializeComponent();
+			IUserData userData = UserData.Instance;
+			var loginViewModel = new LoginViewModel(userData);
+			DataContext = loginViewModel;
 		}
 	}
 }

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFClient.Services.Interfaces;
 
 namespace DiplomClient.View.Pages
 {
@@ -21,10 +22,11 @@ namespace DiplomClient.View.Pages
     /// </summary>
     public partial class StartPage : Page
     {
-        public StartPage()
+        public StartPage(IUserData userData)
         {
             InitializeComponent();
-
+            StartPageViewModel viewModel = new StartPageViewModel(userData);
+            DataContext = viewModel;
         }
     }
 }

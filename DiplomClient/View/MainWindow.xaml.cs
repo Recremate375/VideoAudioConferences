@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFClient.Services.Interfaces;
 
 namespace DiplomClient
 {
@@ -21,10 +22,10 @@ namespace DiplomClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(IUserData userData)
         {
             InitializeComponent();
-            var viewModel = new MainViewModel();
+            var viewModel = new MainViewModel(userData);
             DataContext = viewModel;
         }
     }

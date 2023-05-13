@@ -18,11 +18,6 @@ namespace DiplomClient.Services
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private VideoCapture capture;
 
-        //private int screenLeft = (int)SystemParameters.VirtualScreenLeft;
-        //private int screenTop = (int)SystemParameters.VirtualScreenTop;
-        //private int screenWidth = (int)SystemParameters.VirtualScreenWidth;
-        //private int screenHeight = (int)SystemParameters.VirtualScreenHeight;
-
         private CascadeClassifier cascadeClassifier;
         private BackgroundWorker webCamWorker;
 
@@ -120,18 +115,8 @@ namespace DiplomClient.Services
             while (!webCamWorker.CancellationPending)
             {
                 var image = Capture.QueryFrame().ToImage<Bgr, byte>();
-                //Тут должна быть передача данных на сервер.
-                //DetectFaces()
                 RaiseImageChangedEvent(image);
             }
         }
-        //private void ShareScreen()
-        //{
-        //    Bitmap bm_Screen = new Bitmap(screenWidth, screenHeight);
-        //    Graphics gs = Graphics.FromImage(bm_Screen);
-
-        //    gs.CopyFromScreen(screenLeft, screenTop, 0, 0, bm_Screen.Size);
-
-        //}
     }
 }

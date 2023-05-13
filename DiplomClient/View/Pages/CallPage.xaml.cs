@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFClient.Services.Interfaces;
 
 namespace DiplomClient.View.Pages
 {
@@ -28,9 +29,6 @@ namespace DiplomClient.View.Pages
             var viewModel = new CallViewModel();
             DataContext = viewModel;
 
-    //            < Window.Resources >
-    //    < converters:BitmapSourceConvert x:Key = "BitmapSourceConvert" />
-    //</ Window.Resources >
         }
     }
 }
