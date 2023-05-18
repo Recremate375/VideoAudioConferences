@@ -24,5 +24,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapHub<VideoHub>("/videoHub");
+app.MapHub<ChatHub>("/textHub");
 
 app.Run();

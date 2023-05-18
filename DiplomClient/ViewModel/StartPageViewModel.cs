@@ -25,10 +25,17 @@ namespace DiplomClient.ViewModel
         private WPFClient.Model.Channel choosedChannel; 
         private List<WPFClient.Model.Channel> channels;
         private Bitmap userImage;
+        private string userName;
+        private Bitmap settingFrame;
         public Bitmap UserImage
         {
             get { return userImage; }
             set { SetField(ref userImage, value); }
+        }
+        public Bitmap SettingFrame
+        {
+            get { return settingFrame; }
+            set { SetField(ref  settingFrame, value); }
         }
         public List<WPFClient.Model.Channel> Channels
         { 
@@ -40,6 +47,13 @@ namespace DiplomClient.ViewModel
             get { return user; }
             set { SetField(ref user, value); }
         }
+
+        public string UserName
+        {
+            get { return userName; }
+            set { SetField(ref userName, value); }
+        }
+
         public WPFClient.Model.Channel ChoosedChannel
         {
             get { return choosedChannel; }
@@ -49,9 +63,10 @@ namespace DiplomClient.ViewModel
         public StartPageViewModel(IUserData userData)
         {
             _userData = userData;
-            //GetUserInformation();
             InitializeCommand();
-            LoadImage("img\\animeArt.jpg");
+            LoadImage("img\\animeArt.jpg", out userImage);
+            LoadImage("img\\settings.png", out settingFrame);
+
             user = new User()
             {
                 Id = 1,
@@ -59,17 +74,18 @@ namespace DiplomClient.ViewModel
                 Email = "111@mail.ru",
                 
             };
-        }
+			GetUserInformation();
+		}
 
-		private void LoadImage(string path)
+		private void LoadImage(string path, out Bitmap thisframe)
 		{
 			using (FileStream stream = File.OpenRead(path))
 			{
 				Bitmap bitmap = new Bitmap(stream);
 				MemoryStream memoryStream = new MemoryStream();
-				bitmap.Save(memoryStream, ImageFormat.Bmp);
+				bitmap.Save(memoryStream, ImageFormat.Png);
 				memoryStream.Seek(0, SeekOrigin.Begin);
-				userImage = new Bitmap(memoryStream);
+				thisframe = new Bitmap(memoryStream);
 			}
 		}
 
@@ -79,7 +95,7 @@ namespace DiplomClient.ViewModel
         public ICommand StartVideoCall { get; set; }
         public ICommand ChangeChannel { get; set; }
         public ICommand CreateNewChannel { get; set; }
-
+        public ICommand EditUser { get; set; }
         private void InitializeCommand()
         {
             SendMessage = new RelayCommand(sendMessage);
@@ -87,9 +103,15 @@ namespace DiplomClient.ViewModel
             StartVideoCall = new RelayCommand(startVideoCall);
             ChangeChannel = new RelayCommand(changeChannel);
             CreateNewChannel = new RelayCommand(createNewChannel);
+            EditUser = new RelayCommand(editUser);
         }
 
         private void GetInformationAboutChannel()
+        {
+
+        }
+
+        private void GetChannelsForUser()
         {
 
         }
@@ -98,8 +120,22 @@ namespace DiplomClient.ViewModel
         {
 
 
+            if (user.Name == null)
+            {
+                UserName = user.Email;
+            }
+            else
+            {
+                UserName = user.Name;
+            }
+
 			//channels = user.Channels;
 		}
+
+        private void editUser()
+        {
+
+        }
 
 		private void startAudioCall()
 		{

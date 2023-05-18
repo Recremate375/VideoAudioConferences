@@ -8,6 +8,7 @@ using DiplomClient.Model;
 using DiplomClient.Services;
 using DiplomClient.View.Pages;
 using WPFClient.Services.Interfaces;
+using WPFClient.View.Pages;
 using WPFClient.ViewModel;
 
 namespace DiplomClient.ViewModel
@@ -20,6 +21,7 @@ namespace DiplomClient.ViewModel
 
         public MainViewModel(IUserData userData)
         {
+            //_currentPage = new EditUserPage();
             _currentPage = new StartPage(userData); 
         }
         public Page CurrentPage

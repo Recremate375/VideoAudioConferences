@@ -1,8 +1,10 @@
 ﻿using InformationServer.Data;
+using InformationServer.DTO;
 using InformationServer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace InformationServer.Controllers
 {
@@ -49,12 +51,33 @@ namespace InformationServer.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateUser([FromBody] User user)
+		public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUser)
 		{
+			User user = new User()
+			{
+				
+			};
 			await _context.Users.AddAsync(user);
 			await _context.SaveChangesAsync();
 			return Ok();
 		}
 
+		[HttpPut]
+		[Route("{id:int}")]
+		public async Task<IActionResult> UpdateUser([FromRoute]int id, User user)
+		{
+			var currentUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+			if(currentUser != null)
+			{
+				currentUser.Name = user.Name;
+				currentUser.Email = user.Email;
+				currentUser.Channels = user.Channels;
+				await _context.SaveChangesAsync();
+				return Ok(currentUser);
+			}
+
+			return BadRequest("Can't find a channel");
+		}
 	}
 }

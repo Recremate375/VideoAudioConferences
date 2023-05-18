@@ -24,7 +24,7 @@ namespace DiplomClient.Converters
             {
                 try
                 {
-                    ((Bitmap)value).Save(memoryStream, ImageFormat.Bmp);
+                    ((Bitmap)value).Save(memoryStream, ImageFormat.Png);
                     var image = new BitmapImage();
                     image.BeginInit();
                     memoryStream.Seek(0, SeekOrigin.Begin);

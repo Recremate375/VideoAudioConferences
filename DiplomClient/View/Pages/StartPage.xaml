@@ -37,7 +37,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListViewItem HorizontalAlignment="Center">
-                <Button Content="+" Command="{Binding CreateNewChannel}" Background="DarkSlateGray" Width="40" FontSize="24" Height="40" VerticalContentAlignment="Center" >
+                <Button Content="+" Command="{Binding CreateNewChannel}" Background="BurlyWood" Width="40" FontSize="24" Height="40" VerticalContentAlignment="Center" >
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="20" Background="{TemplateBinding Background}">
@@ -71,13 +71,16 @@
         
         <TextBox Grid.Row="2" Grid.Column="1" Margin="10" Background="BurlyWood" FontSize="11" BorderThickness="3" BorderBrush="Black" TextWrapping="Wrap"/>
         <Button Content="Send" Grid.Column="2" Grid.Row="2" Background="BurlyWood" FontSize="15" BorderBrush="Black" BorderThickness="3" MaxHeight="30" HorizontalAlignment="Left" MinWidth="60" Grid.ColumnSpan="2"/>
+        <Button Grid.Column="2" Grid.Row="2" Height="40" Width="40" HorizontalAlignment="Right" Background="DarkSlateGray" BorderBrush="DarkSlateGray" Margin="10" Command="{Binding EditUser}">
+            <Image Source="{Binding SettingFrame, Converter={StaticResource BitmapSourceConvert}}" />
+        </Button>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Image  Width="50" Height="50" Source="{Binding UserImage, Converter={StaticResource BitmapSourceConvert}}" HorizontalAlignment="Left" Margin="10">
                 <Image.Clip>
                     <EllipseGeometry RadiusX="25" RadiusY="25" Center="25,25"/>
                 </Image.Clip>
             </Image>
-            <TextBlock VerticalAlignment="Center" Background="DarkSlateGray" FontSize="14" Text="{Binding User.Name}" Foreground="BurlyWood"/>
+            <TextBlock VerticalAlignment="Center" Background="DarkSlateGray" FontSize="14" Text="{Binding UserName}" Foreground="BurlyWood"/>
         </StackPanel>
     </Grid>
 </Page>

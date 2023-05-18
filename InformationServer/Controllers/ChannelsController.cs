@@ -75,5 +75,11 @@ namespace InformationServer.Controllers
 			await _context.SaveChangesAsync();
 			return Ok(channel);
 		}
+
+		[HttpDelete]
+		public async Task<IActionResult> DeleteChannel([FromRoute] int id)
+		{
+			return Ok();
+		}
 	}
 }

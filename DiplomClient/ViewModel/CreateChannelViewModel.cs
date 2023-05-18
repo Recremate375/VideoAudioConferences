@@ -55,9 +55,9 @@ namespace WPFClient.ViewModel
 		{
 			using (FileStream stream = File.OpenRead(filePath))
 			{
-				Bitmap bitmap = new Bitmap(stream);
+				Bitmap bitmap = new(stream);
 				MemoryStream memoryStream = new MemoryStream();
-				bitmap.Save(memoryStream, ImageFormat.Bmp);
+				bitmap.Save(memoryStream, ImageFormat.Png);
 				memoryStream.Seek(0, SeekOrigin.Begin);
 				Frame = new Bitmap(memoryStream);
 				channelImage = memoryStream.ToArray();

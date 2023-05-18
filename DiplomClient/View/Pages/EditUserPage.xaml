@@ -1,0 +1,81 @@
+﻿<Page x:Class="WPFClient.View.Pages.EditUserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFClient.View.Pages" xmlns:converters="clr-namespace:DiplomClient.Converters" 
+      xmlns:viewmodel="clr-namespace:WPFClient.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:EditUserViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800" Background="DarkSlateGray"
+      Title="EditUserPage">
+
+    <Page.Resources>
+        <converters:BitmapSourceConvert x:Key="BitmapSourceConvert"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="1" Background="DarkSlateGray" BorderBrush="DarkSlateGray" ItemsSource="{Binding Channels}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Image Height="40" Width="40" Source="{Binding ChannelImage, Converter={StaticResource BitmapSourceConvert}}">
+                            <Image.Clip>
+                                <EllipseGeometry RadiusX="20" RadiusY="20" Center="20, 20"/>
+                            </Image.Clip>
+                        </Image>
+                        <TextBlock FontSize="12" Foreground="BurlyWood" Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListViewItem HorizontalAlignment="Center">
+                <Button Content="+" Command="{Binding CreateNewChannel}" Background="BurlyWood" Width="40" FontSize="24" Height="40" VerticalContentAlignment="Center" >
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="20" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </ListViewItem>
+        </ListView>
+        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Foreground="BurlyWood" Text="Settings" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="0.7*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Width="100" Height="100" Source="{Binding UserImage,Converter={StaticResource BitmapSourceConvert}}">
+                <Image.Clip>
+                    <EllipseGeometry RadiusX="50" RadiusY="50" Center="50,50"/>
+                </Image.Clip>
+                <Image.InputBindings>
+                    <MouseBinding Command="{Binding choosedImageCommand}" MouseAction="LeftClick"/>
+                </Image.InputBindings>
+            </Image>
+            <TextBlock Grid.Column="1" Foreground="BurlyWood" Text="Select an image from your file system." HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" FontSize="20"/>
+            <TextBlock Grid.Row="1" Foreground="BurlyWood" Text="Email: " HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center" FontSize="20"/>
+            <TextBlock Grid.Row="2" Foreground="BurlyWood" Text="Name: " HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center" FontSize="20"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Background="BurlyWood" Text="{Binding CurrentUser.Email, Mode=TwoWay}" Height="35" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Background="BurlyWood" Text="{Binding CurrentUser.Name, Mode=TwoWay}" Height="35" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+            <Button Grid.ColumnSpan="2" Background="BurlyWood" Height="35" Command="{Binding saveChanges}" Content="Save" FontSize="16" Width="130" Grid.Row="3" HorizontalAlignment="Left" Margin="120,0,0,0"/>
+            <Button Grid.ColumnSpan="2" Background="BurlyWood" Height="35"  Content="Go back" FontSize="16" Width="130" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,140,0"/>
+        </Grid>
+    </Grid>
+</Page>

@@ -23,5 +23,9 @@ namespace ConferenceServer.Hubs
 		{
 			await Clients.Others.SendAsync("ReceiveVideoAsync", videoStream);
 		}
+		public async Task SendAudio(byte[] audioStream)
+		{
+			await Clients.Others.SendAsync("ReceiveAudioAsync", audioStream);
+		}
 	}
 }
