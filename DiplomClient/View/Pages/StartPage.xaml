@@ -23,57 +23,91 @@
             <RowDefinition/>
             <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="1" Background="DarkSlateGray" BorderBrush="DarkSlateGray" ItemsSource="{Binding Channels}">
+        <ListView Grid.Row="1" Background="DarkSlateGray" BorderBrush="DarkSlateGray" ItemsSource="{Binding Channels}" SelectedItem="{Binding ChoosedChannel}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Margin="5">
-                        <Image Height="40" Width="40" Source="{Binding ChannelImage, Converter={StaticResource BitmapSourceConvert}}">
+                        <Image Height="40" Width="40" Source="{Binding channelImage, Converter={StaticResource BitmapSourceConvert}}">
                             <Image.Clip>
                                 <EllipseGeometry RadiusX="20" RadiusY="20" Center="20, 20"/>
                             </Image.Clip>
                         </Image>
-                        <TextBlock FontSize="12" Foreground="BurlyWood" Text="{Binding Name}"/>
+                        <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5" Foreground="BurlyWood" Text="{Binding Name}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <ListViewItem HorizontalAlignment="Center">
-                <Button Content="+" Command="{Binding CreateNewChannel}" Background="BurlyWood" Width="40" FontSize="24" Height="40" VerticalContentAlignment="Center" >
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="20" Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-            </ListViewItem>
+            
         </ListView>
+        <ListViewItem HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Bottom">
+            <Button Content="+" Command="{Binding CreateNewChannel}" Background="BurlyWood" Width="40" FontSize="24" Height="40" VerticalContentAlignment="Center" >
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="20" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </ListViewItem>
         <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <TextBlock Text="{Binding ChoosedChannel.Name}"/>
+            <TextBlock Text="{Binding ChoosedChannel.Name}" FontSize="18" Foreground="BurlyWood" VerticalAlignment="Center"/>
 
         </StackPanel>
-        <Button Grid.Column="1" Command="{Binding StartAudioCall}" Content="Start Audio Call" Margin="30, 0, 5, 0" MaxHeight="35" HorizontalAlignment="Right"/>
-        <Button Grid.Column="1" Command="{Binding StartVideoCall}" Content="Start Video Call" Margin="0, 0, 100, 0" MaxHeight="35" HorizontalAlignment="Right"/>
-        <ListView Grid.Row="0" Grid.RowSpan="2" Margin="2" Background="DarkSlateGray" Grid.Column="2" ItemsSource="{Binding ChoosedChannel.Users}">
+        <Button Grid.Column="1" Command="{Binding StartAudioCall}"
+                Margin="30, 0, 5, 0" MaxHeight="45" HorizontalAlignment="Right"
+                Background="DarkSlateGray" BorderBrush="DarkSlateGray">
+            <Image Source="{Binding AudioCallFrame,Converter={StaticResource BitmapSourceConvert}}"/>
+        </Button>
+        <Button Grid.Column="1" Command="{Binding StartVideoCall}"
+                Margin="0, 0, 50, 0" MaxHeight="45" HorizontalAlignment="Right"
+                Background="DarkSlateGray" BorderBrush="DarkSlateGray">
+            <Image Source="{Binding VideoCallFrame,Converter={StaticResource BitmapSourceConvert}}"/>
+        </Button>
+        <ListView Grid.Row="0" Grid.RowSpan="2" Background="DarkSlateGray" Grid.Column="2" ItemsSource="{Binding ChoosedChannel.Users}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Margin="5">
-                        <Image Height="40" Width="40" Source="{Binding UserImage, Converter={StaticResource BitmapSourceConvert}}">
+                        <Image Height="40" Width="40" Source="{Binding userImage, Converter={StaticResource BitmapSourceConvert}}">
                             <Image.Clip>
                                 <EllipseGeometry RadiusX="20" RadiusY="20" Center="20, 20"/>
                             </Image.Clip>
                         </Image>
-                        <TextBlock FontSize="12" Foreground="BurlyWood" Text="{Binding Name}"/>
+                        <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5" Foreground="BurlyWood" Text="{Binding Name}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         
         <TextBox Grid.Row="2" Grid.Column="1" Margin="10" Background="BurlyWood" FontSize="11" BorderThickness="3" BorderBrush="Black" TextWrapping="Wrap"/>
-        <Button Content="Send" Grid.Column="2" Grid.Row="2" Background="BurlyWood" FontSize="15" BorderBrush="Black" BorderThickness="3" MaxHeight="30" HorizontalAlignment="Left" MinWidth="60" Grid.ColumnSpan="2"/>
+        <Button Content="Send" Grid.Column="2" Grid.Row="2" Command="{Binding SendMessage}" Background="BurlyWood" FontSize="15" BorderBrush="Black" BorderThickness="3" MaxHeight="30" HorizontalAlignment="Left" MinWidth="60" Grid.ColumnSpan="2"/>
         <Button Grid.Column="2" Grid.Row="2" Height="40" Width="40" HorizontalAlignment="Right" Background="DarkSlateGray" BorderBrush="DarkSlateGray" Margin="10" Command="{Binding EditUser}">
             <Image Source="{Binding SettingFrame, Converter={StaticResource BitmapSourceConvert}}" />
         </Button>
+        <ListView Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom"  Background="DarkSlateGray" ItemsSource="{Binding ChoosedChannel.MessageHistory}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Grid.RowSpan="2" Height="30" Width="30" Source="{Binding user.userImage, Converter={StaticResource BitmapSourceConvert}}">
+                            <Image.Clip>
+                                <EllipseGeometry RadiusX="15" RadiusY="15" Center="15,15"/>
+                            </Image.Clip>
+                        </Image>
+                        <TextBlock Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="3" Foreground="BurlyWood" Text="{Binding user.Name}"/>
+                        <TextBlock Grid.Column="2" FontSize="10" VerticalAlignment="Center" Margin="3" Foreground="BurlyWood" Text="{Binding messageDate}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="14" VerticalAlignment="Center" Margin="3" Foreground="BurlyWood" Text="{Binding message}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Image  Width="50" Height="50" Source="{Binding UserImage, Converter={StaticResource BitmapSourceConvert}}" HorizontalAlignment="Left" Margin="10">
                 <Image.Clip>

@@ -1,7 +1,6 @@
 ﻿using AuthorizationServer.Data;
 using AuthorizationServer.DTO;
 using AuthorizationServer.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -16,10 +15,11 @@ namespace AuthorizationServer.Controllers
 	public class AccountController : ControllerBase
 	{
 		AuthorizationDbContext _context;
-
+		private readonly HttpClient httpClient;
 		public AccountController(AuthorizationDbContext context)
 		{
 			_context = context;
+			httpClient = new HttpClient();
 		}
 
 		[HttpPost]
@@ -38,10 +38,23 @@ namespace AuthorizationServer.Controllers
 				Password = user.Password
 			};
 
-			await _context.Users.AddAsync(newUser);
-			await _context.SaveChangesAsync();
+			string url = "https://localhost:7156/api/Users";
+			string json = Newtonsoft.Json.JsonConvert.SerializeObject(user);
 
-			return Created($"User { newUser.Email} successfule created", newUser);
+			var content = new StringContent(json, Encoding.UTF8, "application/json");
+			var response = await httpClient.PostAsync(url, content);
+
+			if (response.IsSuccessStatusCode)
+			{
+				await _context.Users.AddAsync(newUser);
+				await _context.SaveChangesAsync();
+
+				return Created($"User {newUser.Email} successfule created", newUser);
+			}
+			else
+			{
+				return BadRequest("Can't save user!");
+			}
 		}
 
 		[HttpPost("login")]

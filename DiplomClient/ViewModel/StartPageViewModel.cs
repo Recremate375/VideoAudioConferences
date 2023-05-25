@@ -1,4 +1,5 @@
 ﻿using DiplomClient.Model;
+using DiplomClient.View.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,8 +13,11 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPFClient.Model;
+using WPFClient.Services;
 using WPFClient.Services.Interfaces;
 using WPFClient.View;
+using WPFClient.View.Pages;
+using WPFClient.ViewModel;
 
 namespace DiplomClient.ViewModel
 {
@@ -22,11 +26,24 @@ namespace DiplomClient.ViewModel
         private IUserData _userData;
         private const string url = "https://localhost:7156/";
         private User user;
+        private WPFClient.Model.Channel channel;
         private WPFClient.Model.Channel choosedChannel; 
-        private List<WPFClient.Model.Channel> channels;
+        private ObservableCollection<WPFClient.Model.Channel> channels;
         private Bitmap userImage;
         private string userName;
         private Bitmap settingFrame;
+        private Bitmap audioCallFrame;
+        private Bitmap videoCallFrame;
+        public Bitmap AudioCallFrame
+        {
+            get { return audioCallFrame; }
+            set { SetField(ref audioCallFrame, value); }
+        }
+        public Bitmap VideoCallFrame
+        {
+            get { return videoCallFrame; }
+            set { SetField(ref videoCallFrame, value); }
+        }
         public Bitmap UserImage
         {
             get { return userImage; }
@@ -37,7 +54,7 @@ namespace DiplomClient.ViewModel
             get { return settingFrame; }
             set { SetField(ref  settingFrame, value); }
         }
-        public List<WPFClient.Model.Channel> Channels
+        public ObservableCollection<WPFClient.Model.Channel> Channels
         { 
             get { return channels; }
             set { SetField(ref channels, value); }
@@ -60,20 +77,27 @@ namespace DiplomClient.ViewModel
             set { SetField(ref choosedChannel, value); }
         }
 
-        public StartPageViewModel(IUserData userData)
+        private byte[] channelImage;
+        private Bitmap ChannelImage;
+
+        public StartPageViewModel()
         {
-            _userData = userData;
+            //_userData = userData;
             InitializeCommand();
             LoadImage("img\\animeArt.jpg", out userImage);
             LoadImage("img\\settings.png", out settingFrame);
+            LoadImage("img\\callButton.png", out audioCallFrame);
+            LoadImage("img\\videoCallButton.png", out videoCallFrame);
 
             user = new User()
             {
                 Id = 1,
                 Name = "Recremate",
-                Email = "111@mail.ru",
-                
+                Email = "user@user.com",
+                userImage = userImage
             };
+
+			//channels.Add(channel);
 			GetUserInformation();
 		}
 
@@ -86,9 +110,9 @@ namespace DiplomClient.ViewModel
 				bitmap.Save(memoryStream, ImageFormat.Png);
 				memoryStream.Seek(0, SeekOrigin.Begin);
 				thisframe = new Bitmap(memoryStream);
+				channelImage = memoryStream.ToArray();
 			}
 		}
-
 
 		public ICommand SendMessage { get; set; }
         public ICommand StartAudioCall { get; set; }
@@ -113,8 +137,8 @@ namespace DiplomClient.ViewModel
 
         private void GetChannelsForUser()
         {
-
-        }
+			
+		}
 
         private void GetUserInformation()
         {
@@ -134,12 +158,12 @@ namespace DiplomClient.ViewModel
 
         private void editUser()
         {
-
+            NavigationService.NavigateTo<EditUserViewModel>();
         }
 
 		private void startAudioCall()
 		{
-
+			NavigationService.NavigateTo<CallViewModel>();
 		}
 
 		private void startVideoCall()
@@ -149,8 +173,28 @@ namespace DiplomClient.ViewModel
 
         private void sendMessage()
         {
+			LoadImage("img\\9Q93_zMIeeo.jpg", out ChannelImage);
 
-        }
+            Message message = new Message
+            {
+                message = "Hello world!",
+                messageDate = DateTime.Now,
+                user = user,
+                Id = 1
+            };
+
+            channel = new WPFClient.Model.Channel()
+			{
+				Name = "Channel1",
+				Id = 1,
+				Users = new List<User> { user },
+                channelImage = ChannelImage,
+                MessageHistory = new List<Message> { message }
+			};
+            Channels = new ObservableCollection<WPFClient.Model.Channel> { channel };
+            //ChoosedChannel = channel;
+			//Channels.Add(channel);
+		}
 
         private void changeChannel()
         {

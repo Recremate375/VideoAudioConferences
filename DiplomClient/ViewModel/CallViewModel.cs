@@ -25,7 +25,11 @@ namespace DiplomClient.ViewModel
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private string buttonContent = "Show Video";
         private Bitmap frame;
+        private Bitmap userFrame;
         private Bitmap screenFrame;
+        private Bitmap shareScreenButtonFrame;
+        private Bitmap webCameraButtonFrame;
+        private Bitmap microfoneButtonFrame;
         private bool isStreaming;
         private bool isScreenStreaming;
         private WebCameraService webCameraService;
@@ -33,21 +37,50 @@ namespace DiplomClient.ViewModel
         private CallService callService;
         private ObservableCollection<Image> images;
         private List<Bitmap> framesOfUsers;
-
+        private string userName;
         public CallViewModel()
         {
             InitializeCommands();
-            LoadImage("img\\animeArt.jpg");
+            LoadImage("img\\animeArt.jpg", out frame);
+            LoadImage("img\\kaneki.jpg", out  userFrame);
+            LoadImage("img\\Monitor.png", out shareScreenButtonFrame);
+            LoadImage("img\\openCameraButton.png", out webCameraButtonFrame);
+            LoadImage("img\\Microphone.png", out microfoneButtonFrame);
+            userName = "Kaneki";
             //CloseAction = methodAction;
         }
 
-        private void LoadImage(string path)
+        public string UserName {
+            get => userName;
+            set => SetField(ref userName, value);
+        }
+
+        public Bitmap ShareScreenButtonFrame
+        {
+            get => shareScreenButtonFrame;
+            set => SetField(ref shareScreenButtonFrame, value);
+        }
+
+        public Bitmap WebCameraButtonFrame
+        {
+            get => webCameraButtonFrame;
+            set => SetField(ref webCameraButtonFrame, value);
+        }
+
+        public Bitmap MicrofoneButtonFrame
+        {
+            get => microfoneButtonFrame;
+            set => SetField(ref microfoneButtonFrame, value);
+        }
+
+
+        private void LoadImage(string path, out Bitmap frame)
         {
             using (FileStream stream = File.OpenRead(path))
             {
                 Bitmap bitmap = new Bitmap(stream);
 				MemoryStream memoryStream = new MemoryStream();
-				bitmap.Save(memoryStream, ImageFormat.Bmp);
+				bitmap.Save(memoryStream, ImageFormat.Png);
 				memoryStream.Seek(0, SeekOrigin.Begin);
                 frame = new Bitmap(memoryStream);
 			}
@@ -88,6 +121,13 @@ namespace DiplomClient.ViewModel
             get => screenFrame;
             set => SetField(ref screenFrame, value);
         }
+
+        public Bitmap UserFrame
+        {
+            get => userFrame;
+            set => SetField(ref  userFrame, value);
+        }
+
         private void InitializeWebCamService()
         {
             webCameraService = new WebCameraService();
@@ -160,7 +200,7 @@ namespace DiplomClient.ViewModel
                 ButtonContent = "Show Video";
                 webCameraService.CancelServiceAsync();
                 ClearFrame();
-				LoadImage("img\\animeArt.jpg");
+				LoadImage("img\\animeArt.jpg", out frame);
 				webCameraService.Dispose();
                 webCameraService = null;
                 logger.Info("Video streaming stopped!");

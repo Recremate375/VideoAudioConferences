@@ -22,11 +22,11 @@ namespace DiplomClient.View.Pages
     /// </summary>
     public partial class StartPage : Page
     {
-        public StartPage(IUserData userData)
+        public StartPage()
         {
             InitializeComponent();
-            StartPageViewModel viewModel = new StartPageViewModel(userData);
-            DataContext = viewModel;
+            //StartPageViewModel viewModel = new StartPageViewModel();
+            //DataContext = viewModel;
         }
     }
 }

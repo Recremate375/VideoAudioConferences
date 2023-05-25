@@ -26,8 +26,8 @@ namespace DiplomClient.View.Pages
         public CallPage()
         {
             InitializeComponent();
-            var viewModel = new CallViewModel();
-            DataContext = viewModel;
+            //var viewModel = new CallViewModel();
+            //DataContext = viewModel;
 
         }
     }

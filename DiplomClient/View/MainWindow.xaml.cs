@@ -1,4 +1,5 @@
-﻿using DiplomClient.ViewModel;
+﻿using DiplomClient.View.Pages;
+using DiplomClient.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFClient.Services;
 using WPFClient.Services.Interfaces;
+using WPFClient.View.Pages;
+using WPFClient.ViewModel;
 
 namespace DiplomClient
 {
@@ -22,11 +26,12 @@ namespace DiplomClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(IUserData userData)
+        private NavigationServiceToPages navigationService { get; set; }
+        public MainWindow()
         {
             InitializeComponent();
-            var viewModel = new MainViewModel(userData);
-            DataContext = viewModel;
+            navigationService = new NavigationServiceToPages(MainFraim);
+            navigationService.NavigateTo<StartPageViewModel>();
         }
     }
 }

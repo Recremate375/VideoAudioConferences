@@ -8,8 +8,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -17,6 +20,8 @@ namespace WPFClient.ViewModel
 {
 	public class EditUserViewModel : BaseViewModel
 	{
+		private readonly string serverUrl = "https://localhost:7156/api/Users/";
+		private readonly HttpClient httpClient = new HttpClient();
 		private User currentUser = new User();
 		private Bitmap userImage;
 		private bool userHaveImage = false;
@@ -79,13 +84,34 @@ namespace WPFClient.ViewModel
 				}
 			}
 		}
-		private void SaveChanges()
+		private async void SaveChanges()
+		{
+			MessageBox.Show("The username is too long, please shorten it to 10 characters.");
+			//string json = Newtonsoft.Json.JsonConvert.SerializeObject(currentUser);
+
+			//var content = new StringContent(json, Encoding.UTF8, "application/json");
+			//var response = await httpClient.PutAsync(serverUrl + $"{currentUser.Id}", content);
+
+			//if (response.IsSuccessStatusCode)
+			//{
+			//	MessageBox.Show("Data saved successfully");
+			//}
+			//else
+			//{
+			//	var errorMessage = await response.Content.ReadAsStringAsync();
+			//	MessageBox.Show(errorMessage, "Error!");
+			//}
+
+		}
+
+		private async void asyncSaveChanges()
 		{
 
 		}
+
 		private void GoBack()
 		{
-
+			NavigationService.NavigateTo<StartPageViewModel>();
 		}
 	}
 }

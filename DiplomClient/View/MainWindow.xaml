@@ -9,5 +9,5 @@
         Title="Diplom" WindowStartupLocation="CenterScreen" Height="450" Width="800" Background="DarkSlateGray">
     
     
-    <Frame x:Name="MainFraim" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
+    <Frame x:Name="MainFraim" NavigationUIVisibility="Hidden"/>
 </Window>

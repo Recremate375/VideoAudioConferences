@@ -24,7 +24,7 @@
             <RowDefinition MinHeight="60" Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Background="BurlyWood" x:Name="CallGrid">
+        <Grid Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" Background="BurlyWood" x:Name="CallGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition MinHeight="90" MaxHeight="180" Height="auto"/>
@@ -35,13 +35,22 @@
 
 
             </Grid.ColumnDefinitions>
-            <WrapPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="BurlyWood" DataContext="{Binding Images}"/>
+            <StackPanel Orientation="Vertical">
+                
+            </StackPanel>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical">
+                    <Image Margin="5" Height="120" Width="200"  Source="{Binding UserFrame, Converter={StaticResource BitmapSourceConvert}}" Stretch="Fill"/>
+                    <TextBlock Text="{Binding UserName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Foreground="Black"/>
+                </StackPanel>
+
+            </StackPanel>
             <Image Grid.Column="1" Grid.Row="0" Source="{Binding ScreenFrame,Converter={StaticResource BitmapSourceConvert}}" Stretch="Fill"/>
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="1" Margin="3">
                 <Image Source="{Binding Frame, Converter={StaticResource BitmapSourceConvert}}" Stretch="Fill" MaxHeight="90" MaxWidth="160"></Image>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding ToggleScreenServiceCommand}" Margin="10" Height="40" Width="40" Content="Share screen" Background="DarkSlateBlue">
+                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding ToggleScreenServiceCommand}" Margin="10" Height="40" Width="40" Background="DarkSlateBlue">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="15" Background="{TemplateBinding Background}">
@@ -49,8 +58,9 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
+                    <Image Source="{Binding ShareScreenButtonFrame, Converter={StaticResource BitmapSourceConvert}}" />
                 </Button>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding ToggleCameraServiceCommand}" Margin="10" Height="40" Width="40" Content="start video" Background="DarkSlateBlue">
+                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding ToggleCameraServiceCommand}" Margin="10" Height="40" Width="40" Background="DarkSlateBlue">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="15" Background="{TemplateBinding Background}">
@@ -58,8 +68,9 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
+                    <Image Source="{Binding WebCameraButtonFrame, Converter={StaticResource BitmapSourceConvert}}" />
                 </Button>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"  Height="40" Width="40" Content="stop sound" Background="DarkSlateBlue">
+                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"  Height="40" Width="40" Background="DarkSlateBlue">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="15" Background="{TemplateBinding Background}">
@@ -67,6 +78,7 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
+                    <Image Source="{Binding MicrofoneButtonFrame, Converter={StaticResource BitmapSourceConvert}}" />
                 </Button>
                 <Button VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"  Height="40" Width="40" Content="Leave" Background="DarkRed">
                     <Button.Template>

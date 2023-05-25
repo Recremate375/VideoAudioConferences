@@ -26,7 +26,7 @@ namespace InformationServer.Controllers
 		}
 
 		[HttpGet]
-		[Route("{name:string}")]
+		[Route("{name:alpha}")]
 		public async Task<IActionResult> GetUser([FromRoute] string Name)
 		{
 			var user = await _context.Users.Include(x => x.Channels).FirstOrDefaultAsync(x => x.Name == Name);
@@ -39,7 +39,7 @@ namespace InformationServer.Controllers
 		}
 
 		[HttpGet]
-		[Route("{id: int}")]
+		[Route("{id:int}")]
 		public async Task<IActionResult> GetUserChannels([FromRoute]int Id)
 		{
 			var user = await _context.Users.Include(x => x.Channels).FirstOrDefaultAsync(x => x.Id == Id);
@@ -55,7 +55,7 @@ namespace InformationServer.Controllers
 		{
 			User user = new User()
 			{
-				
+				Email = createUser.Email
 			};
 			await _context.Users.AddAsync(user);
 			await _context.SaveChangesAsync();
@@ -77,7 +77,7 @@ namespace InformationServer.Controllers
 				return Ok(currentUser);
 			}
 
-			return BadRequest("Can't find a channel");
+			return BadRequest("Can't find a user!");
 		}
 	}
 }

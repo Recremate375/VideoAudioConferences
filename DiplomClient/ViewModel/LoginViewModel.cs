@@ -53,7 +53,7 @@ namespace DiplomClient.ViewModel
 				var token = await GetJwtToken(url, login, stringPassword);
 				_userData.SetLoginData(login);
 				//MessageBox.Show(_userData.GetLoginData());
-				MainWindow windows = new MainWindow(_userData);
+				MainWindow windows = new MainWindow();
 				Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive)?.Close();
 				windows.Show();
 
