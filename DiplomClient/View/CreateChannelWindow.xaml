@@ -1,0 +1,34 @@
+﻿<Window x:Class="WPFClient.View.CreateChannelWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFClient.View" xmlns:viewmodel="clr-namespace:WPFClient.ViewModel" xmlns:converters="clr-namespace:DiplomClient.Converters" d:DataContext="{d:DesignInstance Type=viewmodel:CreateChannelViewModel}"
+        mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        Title="CreateChannelWindow" WindowStartupLocation="CenterScreen" Height="400" Width="350" Background="DarkSlateGray">
+    <Window.Resources>
+        <converters:BitmapSourceConvert x:Key="BitmapSourceConvert" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Create New Channel" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="BurlyWood" FontSize="20"/>
+        <TextBlock Grid.Row="2" Text="Enter your channel name" FontSize="16" Foreground="BurlyWood" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
+        <TextBox Grid.Row="2" Height="40" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="3" Text="{Binding ChannelName, Mode=TwoWay}" Background="BurlyWood" FontSize="16" VerticalContentAlignment="Center" Foreground="Black" Margin="20,0,20,15"/>
+        <TextBlock Grid.Row="1" Text="Personalize your channel by adding a picture to it" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="BurlyWood" Height="20"/>
+        <Button Grid.Row="3" Height="30" Width="100" BorderBrush="Black" BorderThickness="3" Command="{Binding CreateChannel}" Content="Create" Background="BurlyWood" FontSize="15"/>
+        <Image Grid.Row="1"  Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Frame,Converter={StaticResource BitmapSourceConvert}}">
+            <Image.Clip>
+                <EllipseGeometry RadiusX="35" RadiusY="35" Center="35, 35"/>
+            </Image.Clip>
+            <Image.InputBindings>
+                <MouseBinding Command="{Binding OpenFileDialogCommand}" MouseAction="LeftClick"/>
+            </Image.InputBindings>
+        </Image>
+    </Grid>
+</Window>
